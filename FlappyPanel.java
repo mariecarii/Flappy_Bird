@@ -21,8 +21,7 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     int[] gap = {(int) (Math.random() * (HEIGHT - 150)), (int) (Math.random() * (HEIGHT - 100))};
     final int wallXVelocity = 5;
     final int wallWidth = 50;
-    //int wallX = WIDTH + 10;
-    //int gap = (int) (Math.random() * HEIGHT);
+
     boolean gameOver = false;
 
     public FlappyPanel() {
@@ -66,18 +65,15 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     }
     private void logic() {
         for (int i=0; i<2; i++) {
-            if (wallX[i] <= 100 && wallX[i] + wallWidth >= 100) {
+            if (wallX[i] <= 100 && wallX[i] + wallWidth >= 100 || wallX[i] <= 75 && wallX[i] + wallWidth >=75) {
                 if ((flappyHeight + flappyVelocity) >= 0 && (flappyHeight + flappyVelocity) <= gap[i] || (flappyHeight + flappyVelocity + 25) >= gap[i] + 100 && (flappyHeight + flappyVelocity + 25) <= HEIGHT) {
                     gameOver = true;
                 }
             }
 
             if (wallX[i] + wallWidth <= 0) {
-                if (i == 0) {
-                    wallX[0] = WIDTH;
-                } else {
-                    wallX[1] = WIDTH;
-                }
+                wallX[i] = WIDTH;
+                gap[i] = (int) (Math.random() * (HEIGHT - 150));
             }
 
         }
@@ -101,7 +97,7 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
         int code = e.getKeyCode();
 
         if (code == e.VK_SPACE) {
-            flappyAcceleration = -8;
+            flappyAcceleration = -10;
         }
     }
     public void keyReleased(KeyEvent e) {
