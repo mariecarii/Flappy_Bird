@@ -23,6 +23,7 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     final int wallWidth = 50;
     int wallX = WIDTH + 10;
     int gap = (int) (Math.random() * HEIGHT);
+    boolean gameOver = false;
 
     public FlappyPanel() {
 
@@ -36,13 +37,27 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        drawWall(g);
-        drawFlappy(g);
+        if (!gameOver) {
+            drawWall(g);
+            drawFlappy(g);
+        } else {
+
+        }
+
+
 
 
     }
     private void drawFlappy(Graphics g) {
+        if (wallX <= 100 && wallX + wallWidth >=100) {
+            if ((flappyHeight + flappyVelocity) >= 0 && (flappyHeight + flappyVelocity) <= gap || (flappyHeight + flappyVelocity + 25) >= gap + 100 && (flappyHeight + flappyVelocity + 25) <= HEIGHT) {
+                    gameOver = true;
+            }
+        }
+
         g.setColor(Color.white);
+
+//        g.drawLine(wallX, gap, wallX + wallWidth, gap + 100);
         g.fillRect(75, flappyHeight + flappyVelocity, 25, 25);
     }
     private void drawWall(Graphics g) {
