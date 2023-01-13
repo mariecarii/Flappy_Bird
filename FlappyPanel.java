@@ -22,6 +22,7 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     final int wallXVelocity = 5;
     final int wallWidth = 50;
     int wallX = WIDTH + 10;
+    int gap = (int) (Math.random() * HEIGHT);
 
     public FlappyPanel() {
 
@@ -34,8 +35,10 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     }
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawFlappy(g);
+
         drawWall(g);
+        drawFlappy(g);
+
 
     }
     private void drawFlappy(Graphics g) {
@@ -45,6 +48,9 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     private void drawWall(Graphics g) {
         g.setColor(Color.red);
         g.fillRect(wallX, 0, wallWidth, HEIGHT);
+
+        g.setColor(Color.BLACK);
+        g.fillRect(wallX, gap, wallWidth, 100);
     }
     public void actionPerformed(ActionEvent e) {
         flappyAcceleration += flappyImpulse;
