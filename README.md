@@ -17,3 +17,6 @@ This would be used as a game in itself or as a smaller game in a larger applicat
 
 ## Future Plans
 There are multiple parts I'd like to build on in the future. Adding a score board which keeps track of the points is one. Also, changing the white square to another, funner symbol. Also, start, stop, and quit buttons.
+
+## Cedits
+Genghis Reviews, YouTube
