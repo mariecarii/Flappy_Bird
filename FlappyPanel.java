@@ -17,12 +17,12 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     int flappyAcceleration = 8;
     int flappyImpulse = 1;
 
-    //int[] wallX = new int [2];
-    //int[][] gapX = new int [2][2];
+    int[] wallX = {WIDTH, WIDTH + WIDTH / 2};
+    int[] gap = {(int) (Math.random() * (HEIGHT - 150)), (int) (Math.random() * (HEIGHT - 100))};
     final int wallXVelocity = 5;
     final int wallWidth = 50;
-    int wallX = WIDTH + 10;
-    int gap = (int) (Math.random() * HEIGHT);
+    //int wallX = WIDTH + 10;
+    //int gap = (int) (Math.random() * HEIGHT);
     boolean gameOver = false;
 
     public FlappyPanel() {
@@ -39,6 +39,7 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
 
         if (!gameOver) {
             drawWall(g);
+            logic();
             drawFlappy(g);
         } else {
 
@@ -49,29 +50,47 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
 
     }
     private void drawFlappy(Graphics g) {
-        if (wallX <= 100 && wallX + wallWidth >=100) {
-            if ((flappyHeight + flappyVelocity) >= 0 && (flappyHeight + flappyVelocity) <= gap || (flappyHeight + flappyVelocity + 25) >= gap + 100 && (flappyHeight + flappyVelocity + 25) <= HEIGHT) {
-                    gameOver = true;
-            }
-        }
 
         g.setColor(Color.white);
 
-//        g.drawLine(wallX, gap, wallX + wallWidth, gap + 100);
         g.fillRect(75, flappyHeight + flappyVelocity, 25, 25);
     }
     private void drawWall(Graphics g) {
-        g.setColor(Color.red);
-        g.fillRect(wallX, 0, wallWidth, HEIGHT);
+        for (int i=0; i<2; i++) {
+            g.setColor(Color.red);
+            g.fillRect(wallX[i], 0, wallWidth, HEIGHT);
 
-        g.setColor(Color.BLACK);
-        g.fillRect(wallX, gap, wallWidth, 100);
+            g.setColor(Color.BLACK);
+            g.fillRect(wallX[i], gap[i], wallWidth, 100);
+        }
     }
+    private void logic() {
+        for (int i=0; i<2; i++) {
+            if (wallX[i] <= 100 && wallX[i] + wallWidth >= 100) {
+                if ((flappyHeight + flappyVelocity) >= 0 && (flappyHeight + flappyVelocity) <= gap[i] || (flappyHeight + flappyVelocity + 25) >= gap[i] + 100 && (flappyHeight + flappyVelocity + 25) <= HEIGHT) {
+                    gameOver = true;
+                }
+            }
+
+            if (wallX[i] + wallWidth <= 0) {
+                if (i == 0) {
+                    wallX[0] = WIDTH;
+                } else {
+                    wallX[1] = WIDTH;
+                }
+            }
+
+        }
+
+    }
+
     public void actionPerformed(ActionEvent e) {
         flappyAcceleration += flappyImpulse;
         flappyVelocity += flappyAcceleration;
 
-        wallX-= wallXVelocity;
+        wallX[0] -= wallXVelocity;
+        wallX[1] -= wallXVelocity;
+
         repaint();
     }
 
