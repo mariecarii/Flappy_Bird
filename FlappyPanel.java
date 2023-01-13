@@ -1,5 +1,4 @@
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.KeyListener;
@@ -41,6 +40,7 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
             logic();
             drawFlappy(g);
         } else {
+
 
         }
 
