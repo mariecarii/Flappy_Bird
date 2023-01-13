@@ -13,7 +13,9 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     final int WIDTH = 525;
     final int HEIGHT = 550;
     int flappyHeight = HEIGHT / 4;
-    int velocity = 0;
+    int flappyVelocity = 0;
+    int flappyAcceleration = 8;
+    int flappyImpulse = 1;
 
 
     public FlappyPanel() {
@@ -31,9 +33,11 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
     }
     private void drawFlappy(Graphics g) {
         g.setColor(Color.white);
-        g.fillRect(75, flappyHeight, 50, 50);
+        g.fillRect(75, flappyHeight + flappyVelocity, 25, 25);
     }
     public void actionPerformed(ActionEvent e) {
+        flappyAcceleration += flappyImpulse;
+        flappyVelocity += flappyAcceleration;
         repaint();
     }
 
@@ -41,7 +45,11 @@ public class FlappyPanel extends JPanel implements KeyListener, ActionListener {
 
     }
     public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
 
+        if (code == e.VK_SPACE) {
+            flappyAcceleration = -8;
+        }
     }
     public void keyReleased(KeyEvent e) {
 
